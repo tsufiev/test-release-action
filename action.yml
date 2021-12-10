@@ -13,6 +13,10 @@ inputs:
   npm-token:
     description: PAT of an NPM user which publishes the package
     required: true
+  run-tests:
+    description: Whether to run tests prior to running release-please
+    default: '1'
+    required: false
 
 outputs:
   release-created:
@@ -23,6 +27,9 @@ runs:
   using: composite
   steps:
     - uses: actions/checkout@v2
+    - run: npm test
+      if: ${{ inputs.run-tests }}
+      shell: bash
     - uses: codex-team/action-nodejs-package-info@v1
       id: package
     - uses: GoogleCloudPlatform/release-please-action@v2
