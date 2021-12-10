@@ -36,12 +36,6 @@ runs:
         node-version: ${{ inputs.node-version }}
         registry-url: 'https://registry.npmjs.org'
       if: ${{ steps.release.outputs.release_created }}
-    - run: npm ci
-      if: ${{ steps.release.outputs.release_created }}
-      shell: bash
-    - run: npm test
-      if: ${{ steps.release.outputs.release_created }}
-      shell: bash
     - run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ inputs.npm-token }}
