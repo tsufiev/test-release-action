@@ -13,10 +13,6 @@ inputs:
   npm-token:
     description: PAT of an NPM user which publishes the package
     required: true
-  run-tests:
-    description: Whether to run tests prior to running release-please
-    default: '1'
-    required: false
 
 outputs:
   release-created:
@@ -38,6 +34,7 @@ runs:
         token: ${{ inputs.github-token }}
         release-type: node
         package-name: ${{ steps.package.outputs.name }}
+        changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Miscellaneous","hidden":false}]'
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ inputs.node-version }}
